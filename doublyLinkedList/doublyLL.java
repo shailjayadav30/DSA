@@ -141,34 +141,26 @@ public class doublyLL {
         return head;
     }
 
-    public static Node InsertBeforeKthElement(Node head, int val, int element) {
+    public static Node InsertBeforeKthElement(Node head, int val, int k) {
         // inserting before head
-        if (head.data == element) {
+        if (k == 1) {
             Node newNode = new Node(val, head, null);
             head.back = newNode;
             return newNode;
         }
         Node temp = head;
+        int count = 0;
         while (temp != null) {
-            if (temp.data == element) {
-                Node prev = temp.back;
-                // inserting in between element
-                if (prev != null && temp.back != null) {
-                    Node newNode = new Node(val, temp, prev);
-                    prev.next = newNode;
-                    temp.back = newNode;
-                    return head;
-                }
-                // inserting before tail
-                if (temp.next == null) {
-                    Node newNode = new Node(val, temp, prev);
-                    temp.back = newNode;
-                    prev.next = newNode;
-                    return head;
-                }
-            }
+            count++;
+            if (count == k)
+                break;
+
             temp = temp.next;
         }
+        Node prev = temp.back;
+        Node newNode = new Node(val, temp, prev);
+        prev.next = newNode;
+        temp.back = newNode;
         return head;
     }
 
@@ -178,9 +170,7 @@ public class doublyLL {
 
         Node prev = temp.back;
         Node newNode = new Node(value, temp, prev);
-        if (temp.back != null) {
-            prev.next = newNode;
-        }
+        prev.next = newNode;
         temp.back = newNode;
 
     }
@@ -192,7 +182,7 @@ public class doublyLL {
         // head = InsertBeforeHead(head, 8);
         // head = InsertBeforeTail(head, 8);
         // head = InsertBeforeKthElement(head, 8, 4);
-        InsertBeforeKthNode(head.next, 20);
+        InsertBeforeKthNode(head.next.next.next, 20);
 
         printLL(head);
 
