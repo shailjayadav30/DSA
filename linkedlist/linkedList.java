@@ -35,7 +35,7 @@ public class linkedList {
         }
     }
 
-    private static void printLL(Node head) {
+    public static void printLL(Node head) {
         while (head != null) {
             System.out.println(head.data + " ");
             head = head.next;
