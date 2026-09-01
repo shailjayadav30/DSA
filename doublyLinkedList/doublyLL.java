@@ -175,14 +175,83 @@ public class doublyLL {
 
     }
 
+    public static Node InsertAfterHead(Node head, int value) {
+        if (head == null)
+            return null;
+        if (head.next == null) {
+            Node newNode = new Node(value, null, head);
+            head.next = newNode;
+            return head;
+        }
+        Node front = head.next;
+        Node newNode = new Node(value, front, head);
+        head.next = newNode;
+        front.back = newNode;
+        return head;
+    }
+
+    public static Node InsertAfterTail(Node head, int value) {
+        if (head == null)
+            return null;
+        if (head.next == null) {
+            Node newNode = new Node(value, null, head);
+            head.next = newNode;
+            return head;
+        }
+        Node temp = head;
+        while (temp.next != null) {
+            temp = temp.next;
+        }
+        Node newNode = new Node(value, null, temp);
+        temp.next = newNode;
+        return head;
+    }
+
+    public static Node InsertAfterKthElement(Node head, int k, int val) {
+        if (head == null) {
+            return null;
+        }
+        Node temp = head;
+        int count = 0;
+        while (temp != null) {
+            count++;
+            if (count == k) {
+                break;
+            }
+            temp = temp.next;
+        }
+        if (temp == null) {
+            return head;
+        }
+        Node front = temp.next;
+        Node newNode = new Node(val, front, temp);
+        temp.next = newNode;
+        if (front != null) {
+            front.back = newNode;
+        }
+        return head;
+    }
+
+    public static void InsertAfterKthNode(Node temp, int val) {
+        Node front = temp.next;
+        Node newNode = new Node(val, front, temp);
+        temp.next = newNode;
+        if (front != null) {
+            front.back = newNode;
+        }
+    }
+
     public static void main(String args[]) {
-        int arr[] = { 1, 2, 3, 4 };
+        int arr[] = { 1, 2, 4, 5 };
         Node head = ArrayToLList(arr);
         // deleteGivenNode(head.next.next);
         // head = InsertBeforeHead(head, 8);
         // head = InsertBeforeTail(head, 8);
         // head = InsertBeforeKthElement(head, 8, 4);
-        InsertBeforeKthNode(head.next.next.next, 20);
+        // InsertBeforeKthNode(head.next.next.next, 20);
+        // head = InsertAfterTail(head, 10);
+        // head = InsertAfterKthElement(head, 4, 30);
+        InsertAfterKthNode(head.next.next.next, 30);
 
         printLL(head);
 
