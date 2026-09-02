@@ -164,14 +164,14 @@ public class linkedList {
 
             return null;
         }
-        if (head.data==val) {
+        if (head.data == val) {
             return new Node(ele, head);
         }
         Node temp = head;
-      
+
         while (temp.next != null) {
-            
-            if (temp.next.data==val) {
+
+            if (temp.next.data == val) {
                 Node newNode = new Node(ele, temp.next);
                 temp.next = newNode;
                 break;
@@ -205,14 +205,63 @@ public class linkedList {
         return dummy.next;
     }
 
+    public static Node AddReverseLL(Node head1, Node head2) {
+        Node t1 = head1;
+        Node t2 = head2;
+        Node dummy = new Node(-1);
+        Node curr = dummy;
+        int carry = 0;
+        while (t1 != null || t2 != null) {
+            int sum = carry;
+            if (t1 != null) {
+                sum = sum + t1.data;
+            }
+            if (t2 != null) {
+                sum = sum + t2.data;
+            }
+            Node newNode = new Node(sum % 10);
+            carry = sum / 10;
+            curr.next = newNode;
+            curr = curr.next;
+            if (t1 != null) {
+                t1 = t1.next;
+            }
+            if (t2 != null) {
+                t2 = t2.next;
+            }
+        }
+        if (carry >= 0) {
+            Node newNode = new Node(carry);
+            curr.next = newNode;
+        }
+        return dummy.next;
+    }
+
+    public static Node GroupEvenOdd(Node head) {
+        if(head==null||head.next==null){
+            return head;
+        }
+        Node odd = head;
+        Node even = head.next;
+        Node evenHead=head.next;
+        while (even != null && even.next != null) {
+            odd.next = odd.next.next;
+            even.next = even.next.next;
+            odd = odd.next;
+            even = even.next;
+        }
+        odd.next=evenHead;
+        return head;
+    }
+
     public static void main(String[] args) {
-        int arr[] = { 1, 3, 5, 45 };
-        int arr2[] = { 1, 3, 4, 5 };
+        int arr0[] = { 1, 3, 5, 45 };
+        int arr00[] = { 1, 3, 4, 5 };
 
         // int arr[] = {};
         // Node y = new Node(arr[0]);
         // System.out.println(y.data);
-        Node head = convertArr2LL(arr);
+        Node head = convertArr2LL(arr0);
 
         // System.out.println(head.data);
         // traverse(head);
@@ -228,60 +277,15 @@ public class linkedList {
         // Node list2 = convertArr2LL(arr2);
 
         // head = merge(list1, list2);
-        head = InsertBeforeValue(head, 22, 45);
-         
+        // head = InsertBeforeValue(head, 22, 45);
+        int arr1[] = { 3, 5 };
+        int arr2[] = { 4, 5, 9, 2, 7, 8 };
+        Node head1 = convertArr2LL(arr1);
+        Node head2 = convertArr2LL(arr2);
+
+        // head = AddReverseLL(head1, head2);
+        head = GroupEvenOdd(head2);
+
         printLL(head);
     }
 }
-
-class ListNode {
-    int val;
-    ListNode next;
-
-    ListNode() {
-    }
-
-    ListNode(int val) {
-        this.val = val;
-    }
-
-    ListNode(int val, ListNode next) {
-        this.val = val;
-        this.next = next;
-    }
-}
-
-// class Solution {
-// public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
-// ListNode temp1 = list1;
-// ListNode temp2 = list2;
-// ListNode prev1 = null;
-// ListNode prev2 = null;
-// ListNode newList=new ListNode();
-
-// if (list1 == null & list2 == null) {
-// return list1;
-// }
-
-// while (temp1 != null || temp2 != null) {
-// if (temp1.val <= temp2.val) {
-// newList.
-// }
-// }
-// return newList;
-// }
-// }
-
-// if (temp1.data <= temp2.data) {
-// prev1 = temp1;
-// // prev2 = temp2;
-// temp1 = temp1.next;
-// if (temp2.data < temp1.data) {
-// prev2 = temp2;
-// prev1.next = prev2;
-// temp2=temp2.next;
-// prev2.next=temp1;
-// // prev1.next=temp1;
-// // temp2 = temp2.next;
-// prev1 = temp2;
-// }

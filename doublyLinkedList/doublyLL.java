@@ -241,6 +241,24 @@ public class doublyLL {
         }
     }
 
+    public static Node ReverseDoublyLL(Node head) {
+        if (head == null || head.next == null) {
+            return head;
+        }
+
+        Node prev = null;
+        Node curr = head;
+        while (curr != null) {
+            prev = curr.back;
+            curr.back = curr.next;
+            curr.next = prev;
+            curr = curr.back;
+        }
+        return prev.back;
+    }
+
+
+
     public static void main(String args[]) {
         int arr[] = { 1, 2, 4, 5 };
         Node head = ArrayToLList(arr);
@@ -251,7 +269,8 @@ public class doublyLL {
         // InsertBeforeKthNode(head.next.next.next, 20);
         // head = InsertAfterTail(head, 10);
         // head = InsertAfterKthElement(head, 4, 30);
-        InsertAfterKthNode(head.next.next.next, 30);
+        // InsertAfterKthNode(head.next.next.next, 30);
+        head = ReverseDoublyLL(head);
 
         printLL(head);
 
