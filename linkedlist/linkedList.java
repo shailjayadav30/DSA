@@ -238,30 +238,123 @@ public class linkedList {
     }
 
     public static Node GroupEvenOdd(Node head) {
-        if(head==null||head.next==null){
+        if (head == null || head.next == null) {
             return head;
         }
         Node odd = head;
         Node even = head.next;
-        Node evenHead=head.next;
+        Node evenHead = head.next;
         while (even != null && even.next != null) {
             odd.next = odd.next.next;
             even.next = even.next.next;
             odd = odd.next;
             even = even.next;
         }
-        odd.next=evenHead;
+        odd.next = evenHead;
+        return head;
+    }
+
+    public static Node SortLL012(Node head) {
+        Node temp = head;
+        int c0 = 0;
+        int c1 = 0;
+        int c2 = 0;
+        while (temp != null) {
+            if (temp.data == 0) {
+                c0++;
+            } else if (temp.data == 1) {
+                c1++;
+            } else {
+                c2++;
+            }
+            temp = temp.next;
+        }
+        temp = head;
+        while (temp != null) {
+            if (c0 > 0) {
+                temp.data = 0;
+                c0--;
+            } else if (c1 > 0) {
+                temp.data = 1;
+                c1--;
+            } else {
+                temp.data = 2;
+                c2--;
+            }
+            temp = temp.next;
+        }
+        return head;
+    }
+
+    // public static boolean Palindrome(Node head) {
+    // Node temp = head;
+
+    // }
+
+    public static Node ArayTOLL(int[] arr) {
+        Node head = new Node(arr[0]);
+        Node temp = head;
+        for (int i = 1; i < arr.length; i++) {
+            Node newNode = new Node(arr[i]);
+            temp.next = newNode;
+            temp = temp.next;
+        }
+        return head;
+
+    }
+
+    public static Node reverse(Node head) {
+        Node prev = null;
+        Node current = head;
+
+        while (current != null) {
+            Node nextNode = current.next;
+            current.next = prev;
+            prev = current;
+            current = nextNode;
+        }
+        return prev;
+    }
+
+    public static Node add1toLL(Node head) {
+        Node newHead = reverse(head);
+        Node temp = newHead;
+        int carry = 1;
+        while (temp != null && carry > 0) {
+            int sum = temp.data + carry;
+            temp.data = sum % 10;
+            carry = sum / 10;
+            temp = temp.next;
+
+        }
+        if (carry > 0) {
+            Node newNode = new Node(carry);
+            newNode.next = newHead;
+            newHead = newNode;
+        }
+        return reverse(newHead);
+    }
+  public static int addHelper(Node temp){
+      if(temp==null) return 1;
+      int carry=addHelper(temp.next);
+      if( temp.data<10)return 0;
+    //   temp.data=
+
+
+  }
+    public static Node add1ToLLRecursive(Node head) {
+
         return head;
     }
 
     public static void main(String[] args) {
-        int arr0[] = { 1, 3, 5, 45 };
-        int arr00[] = { 1, 3, 4, 5 };
+        // int arr0[] = { 1, 3, 5, 45 };
+        // int arr00[] = { 1, 3, 4, 5 };
 
         // int arr[] = {};
         // Node y = new Node(arr[0]);
         // System.out.println(y.data);
-        Node head = convertArr2LL(arr0);
+        // Node head = convertArr2LL(arr0);
 
         // System.out.println(head.data);
         // traverse(head);
@@ -278,14 +371,17 @@ public class linkedList {
 
         // head = merge(list1, list2);
         // head = InsertBeforeValue(head, 22, 45);
-        int arr1[] = { 3, 5 };
-        int arr2[] = { 4, 5, 9, 2, 7, 8 };
-        Node head1 = convertArr2LL(arr1);
-        Node head2 = convertArr2LL(arr2);
-
+        // int arr1[] = { 3, 5 };
+        // int arr2[] = { 4, 5, 9, 2, 7, 8 };
+        // Node head1 = convertArr2LL(arr1);
+        // Node head2 = convertArr2LL(arr2);
         // head = AddReverseLL(head1, head2);
-        head = GroupEvenOdd(head2);
-
+        // head = GroupEvenOdd(head2);
+        // head = SortLL012(head3);
+        // System.out.println(Palindrome(head3));
+        int arr3[] = { 9, 9, 9, 9 };
+        Node head = convertArr2LL(arr3);
+        head = add1toLL(head);
         printLL(head);
     }
 }
